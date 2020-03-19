@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thuc Hanh</title>
+</head>
+<body>
+    <h2>Add New Product</h2>
+    <form>
+        <input type="text" id="productName" placeholder="New Product">
+        <button  type="button" onclick="addProduct()" style="background-color: green">ADD</button>
+    </form>
+    <h2>Display</h2>
+    <table id="productTable"></table>
+<script>
+    let productList=[];
+    function getProductsAt(position) {
+        let productName=productList[position];
+        let productRow=" <tr>\n" +
+            "            <td>"+productName+"</td>\n" +
+            "            <td><button onclick='editProduct("+position+")'>Edit</button></td>\n" +
+            "            <td><button onclick='deleteProductAt("+position+")'>Delete</button></td>\n" +
+            "        </tr>";
+        return productRow;
+    }
+    function displayProducts() {
+        let tableContent="";
+        for (let i=0;i<productList.length;i++){
+            tableContent+=getProductsAt(i);
+        }
+        document.getElementById('productTable').innerHTML=tableContent;
+    }
+    function addProduct() {
+        let productName=document.getElementById("productName").value;
+        productList.push(productName);
+        displayProducts();
+    }
+    function deleteProductAt(position) {
+        productList.splice(position,1);
+        displayProducts();
+    }
+    function editProduct(position) {
+       productList[position]=prompt("Change product:");
+       displayProducts();
+    }
+</script>
+</body>
+</html>
